@@ -1,9 +1,7 @@
-package handlers
+package storage
 
 import (
 	"math/rand"
-
-	"github.com/knightsdd/shorturl2/internal/storage"
 )
 
 func randStr(length int) string {
@@ -16,7 +14,7 @@ func randStr(length int) string {
 	return url
 }
 
-func getPostfix(storage storage.UrlStorage, length int) string {
+func getPostfix(storage UrlStorage, length int) string {
 	for {
 		postfix := randStr(length)
 		if _, ok := storage[postfix]; !ok {

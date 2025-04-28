@@ -24,10 +24,7 @@ func GenShortUrl(storage storage.UrlStorage) func(w http.ResponseWriter, r *http
 			http.Error(w, "Invalid body", http.StatusBadGateway)
 			return
 		}
-
-		postfix := getPostfix(storage, postfixLength)
-		storage.SaveValue(postfix, string(body))
-		storage[postfix] = string(body)
+		postfix := storage.SaveValue(string(body))
 		schema := "http"
 		if r.TLS != nil {
 			schema = "https"
@@ -44,6 +41,7 @@ func GetOriginalUrl(storage storage.UrlStorage) func(w http.ResponseWriter, r *h
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Only GET requests are allowed!", http.StatusMethodNotAllowed)
+			return
 		}
 		prfix := r.PathValue("prefix")
 		if originalUrl, ok := storage.GetValue(prfix); ok {

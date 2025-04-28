@@ -2,6 +2,10 @@ package storage
 
 type UrlStorage map[string]string
 
+const (
+	postfixLength = 8
+)
+
 var storage UrlStorage
 
 func init() {
@@ -12,8 +16,10 @@ func GetStorage() UrlStorage {
 	return storage
 }
 
-func (s UrlStorage) SaveValue(key, value string) {
+func (s UrlStorage) SaveValue(value string) (key string) {
+	key = getPostfix(s, postfixLength)
 	s[key] = value
+	return
 }
 
 func (s UrlStorage) GetValue(key string) (value string, ok bool) {
