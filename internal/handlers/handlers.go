@@ -7,10 +7,6 @@ import (
 	"github.com/knightsdd/shorturl2/internal/storage"
 )
 
-const (
-	postfixLength = 8
-)
-
 func GenShortUrl(storage storage.UrlStorage) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "POST" {
@@ -43,8 +39,8 @@ func GetOriginalUrl(storage storage.UrlStorage) func(w http.ResponseWriter, r *h
 			http.Error(w, "Only GET requests are allowed!", http.StatusMethodNotAllowed)
 			return
 		}
-		prfix := r.PathValue("prefix")
-		if originalUrl, ok := storage.GetValue(prfix); ok {
+		prefix := r.PathValue("prefix")
+		if originalUrl, ok := storage.GetValue(prefix); ok {
 			w.Header().Set("Location", originalUrl)
 			w.WriteHeader(http.StatusTemporaryRedirect)
 			return
