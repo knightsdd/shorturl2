@@ -90,6 +90,7 @@ func TestGetOriginalUrl(t *testing.T) {
 	tstorage := storage.UrlStorage{
 		"Basgf21h": "https://testsite.one",
 		"hAGd3am6": "https://website.q.two",
+		"sAMd3an8": "https://website.q.two/media/files/2025-01-01/s",
 	}
 	type want struct {
 		status   int
@@ -123,7 +124,17 @@ func TestGetOriginalUrl(t *testing.T) {
 			},
 		},
 		{
-			name:      "Test #3 method not allow",
+			name:      "Test #3 success",
+			storage:   tstorage,
+			targetUrl: `sAMd3an8`,
+			method:    http.MethodGet,
+			want: want{
+				status:   http.StatusTemporaryRedirect,
+				location: "https://website.q.two/media/files/2025-01-01/s",
+			},
+		},
+		{
+			name:      "Test #4 method not allow",
 			storage:   tstorage,
 			targetUrl: `hAGd3am6`,
 			method:    http.MethodPost,
@@ -133,7 +144,7 @@ func TestGetOriginalUrl(t *testing.T) {
 			},
 		},
 		{
-			name:      "Test #4 bad request",
+			name:      "Test #5 bad request",
 			storage:   tstorage,
 			targetUrl: `XXXxxx`,
 			method:    http.MethodGet,
