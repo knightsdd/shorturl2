@@ -24,8 +24,8 @@ import (
 
 func MainRouter(storage storage.UrlStorage) chi.Router {
 	r := chi.NewRouter()
-	r.Post("/{$}", handlers.GenShortUrl(storage))
-	r.Get("/{prefix}/{$}", handlers.GetOriginalUrl(storage))
+	r.Post("/", handlers.GenShortUrl(storage))
+	r.Get("/{prefix}", handlers.GetOriginalUrl(storage))
 	return r
 }
 
