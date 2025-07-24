@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/knightsdd/shorturl2/internal/config"
 	"github.com/knightsdd/shorturl2/internal/storage"
 )
 
@@ -21,11 +22,8 @@ func GenShortUrl(storage storage.UrlStorage) func(w http.ResponseWriter, r *http
 			return
 		}
 		postfix := storage.SaveValue(string(body))
-		schema := "http"
-		if r.TLS != nil {
-			schema = "https"
-		}
-		shortUrl := schema + "://" + r.Host + "/" + postfix
+		prefix := config.GetServerPrefixAddress()
+		shortUrl := prefix + postfix
 
 		w.Header().Set("content-type", "text/plain")
 		w.WriteHeader(http.StatusCreated)
