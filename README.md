@@ -45,10 +45,12 @@ Location: https://practicum.yandex.ru/
 Запуск из директории `/cmd/shortener`
 Сервер может быть запущен с параметрами
 ```
--a value
-        Server run address host:port (default localhost:8080)
--b value
-        Base address for requests protokol://host:port
+-endpoint string
+        Server endpoint basic url (default "http://localhost:8080/")
+-host string
+        Server run host (default "localhost")
+-port int
+        Server run port (default 8080)
 ```
 
 ### Примеры запросов для тестирования:
@@ -67,6 +69,6 @@ curl -H 'Content-Type: text/plain' -d 'https://market.yandex.ru/product--3526-2/
 Запуск из директории `cmd/client`
 Клиент может быть запущен с параметрами:
 ```
--a value
-        Address to send requests protocol:://host:port (default http://localhost:8080/)
+-endpoint string
+        Client endpoint basic url (default "http://localhost:8080/")
 ```
