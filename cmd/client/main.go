@@ -13,7 +13,6 @@ import (
 
 func main() {
 	config.ParseClientFlags()
-	endpoint := config.GetClientEndpoint()
 
 	fmt.Println("Введите длинный URL")
 	reader := bufio.NewReader(os.Stdin)
@@ -23,7 +22,7 @@ func main() {
 	}
 	long = strings.TrimSuffix(long, "\n")
 	client := &http.Client{}
-	request, err := http.NewRequest(http.MethodPost, endpoint, strings.NewReader(long))
+	request, err := http.NewRequest(http.MethodPost, config.ClientEndpoint, strings.NewReader(long))
 	if err != nil {
 		panic(err)
 	}

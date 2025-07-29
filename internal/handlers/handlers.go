@@ -22,8 +22,7 @@ func GenShortUrl(storage storage.UrlStorage) func(w http.ResponseWriter, r *http
 			return
 		}
 		postfix := storage.SaveValue(string(body))
-		prefix := config.GetServerPrefixAddress()
-		shortUrl := prefix + postfix
+		shortUrl := config.ServerEndpoint + postfix
 
 		w.Header().Set("content-type", "text/plain")
 		w.WriteHeader(http.StatusCreated)
