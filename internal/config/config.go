@@ -1,25 +1,18 @@
 package config
 
-type mainConfig struct {
-	runAddress    runAddress
-	prefixAddress prefixAddress
-}
+import (
+	"fmt"
+)
 
-type otherConfig struct {
-	endpoint prefixAddress
-}
+// server config
+var ServerHost string
+var ServerPort int
+var ServerEndpoint string
 
-var serverConfig mainConfig
-var clientConfig otherConfig
+// client config
+var ClientEndpoint string
 
+// server get config funcs
 func GetServerRunAddress() string {
-	return serverConfig.runAddress.String()
-}
-
-func GetServerPrefixAddress() string {
-	return serverConfig.prefixAddress.String()
-}
-
-func GetClientEndpoint() string {
-	return clientConfig.endpoint.String()
+	return fmt.Sprintf("%s:%d", ServerHost, ServerPort)
 }
