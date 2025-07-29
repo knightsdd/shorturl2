@@ -43,7 +43,13 @@ Location: https://practicum.yandex.ru/
 
 ### Запуск сервера:
 Запуск из директории `/cmd/shortener`
-Сервер может быть запущен с параметрами
+Сервер поумолчанию запускается с параметрами из переменных окржуния:
+```
+SERVER_HOST=            // localhost
+SERVER_PORT=            // 8080
+SERVER_ENDPOINT=        // http://localhost:8080/
+```
+Если переменные окружения не заданы, то можно использовать параметры командной строки:
 ```
 -endpoint string
         Server endpoint basic url (default "http://localhost:8080/")
@@ -67,7 +73,11 @@ curl -H 'Content-Type: text/plain' -d 'https://market.yandex.ru/product--3526-2/
 
 ### Запуск клиента
 Запуск из директории `cmd/client`
-Клиент может быть запущен с параметрами:
+Клиент поумолчанию запускается с параметрами из переменных окружения:
+```
+CLIENT_ENDPOINT=                // http://localhost:8080/
+```
+Если переменные окружения не заданы, то можно использовать параметры командной строки:
 ```
 -endpoint string
         Client endpoint basic url (default "http://localhost:8080/")
