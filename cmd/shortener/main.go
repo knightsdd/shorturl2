@@ -12,11 +12,14 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func MainRouter(storage storage.UrlStorage) chi.Router {
+func MainRouter(storage storage.Storage) chi.Router {
 	r := chi.NewRouter()
 	r.Use(logger.Logger)
 	r.Post("/", handlers.GenShortUrl(storage))
 	r.Get("/{prefix}", handlers.GetOriginalUrl(storage))
+	r.Route("/api", func(r chi.Router) {
+		r.Post("/shorten", handlers.ShortUrlAPI(storage))
+	})
 	return r
 }
 

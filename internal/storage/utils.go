@@ -14,7 +14,7 @@ func randStr(length int) string {
 	return url
 }
 
-func getPostfix(storage UrlStorage, length int) string {
+func getPostfix(storage InMemoryStorage, length int) string {
 	for {
 		postfix := randStr(length)
 		if _, ok := storage[postfix]; !ok {
