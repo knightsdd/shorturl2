@@ -1,28 +1,33 @@
 package storage
 
-type UrlStorage map[string]string
+type InMemoryStorage map[string]string
+
+type Storage interface {
+	SaveValue(value string) (key string)
+	GetValue(key string) (value string, ok bool)
+}
 
 const (
 	postfixLength = 8
 )
 
-var storage UrlStorage
+var storage InMemoryStorage
 
 func init() {
-	storage = make(UrlStorage, 10)
+	storage = make(InMemoryStorage, 10)
 }
 
-func GetStorage() UrlStorage {
+func GetStorage() InMemoryStorage {
 	return storage
 }
 
-func (s UrlStorage) SaveValue(value string) (key string) {
+func (s InMemoryStorage) SaveValue(value string) (key string) {
 	key = getPostfix(s, postfixLength)
 	s[key] = value
 	return
 }
 
-func (s UrlStorage) GetValue(key string) (value string, ok bool) {
+func (s InMemoryStorage) GetValue(key string) (value string, ok bool) {
 	value, ok = s[key]
 	return
 }
