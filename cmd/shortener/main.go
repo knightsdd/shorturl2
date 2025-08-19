@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/knightsdd/shorturl2/internal/config"
+	"github.com/knightsdd/shorturl2/internal/gzip"
 	"github.com/knightsdd/shorturl2/internal/handlers"
 	"github.com/knightsdd/shorturl2/internal/logger"
 	"github.com/knightsdd/shorturl2/internal/storage"
@@ -14,7 +15,7 @@ import (
 
 func MainRouter(storage storage.Storage) chi.Router {
 	r := chi.NewRouter()
-	r.Use(logger.Logger)
+	r.Use(logger.Logger, gzip.GzipCompresser)
 	r.Post("/", handlers.GenShortUrl(storage))
 	r.Get("/{prefix}", handlers.GetOriginalUrl(storage))
 	r.Route("/api", func(r chi.Router) {
